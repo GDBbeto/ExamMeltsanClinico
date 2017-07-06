@@ -1,0 +1,283 @@
+<div class="container">
+<br>
+<h2>Medicos</h2>
+<br>
+<br>
+<!-- para buscar un registro en la tabla de paciente -->
+	 <div class="input-group">
+	    <input type="text" class="form-control" placeholder="Buscar...."   ng-model = "filters.myfilter">
+	    <div class="input-group-btn">
+	      <button class="btn btn-default" type="submit">
+	        <i class="glyphicon glyphicon-search"></i>
+	      </button>
+	    </div>
+	  </div>
+	  
+	  <br>
+	  <!-- boton para agregar un nuevo usuario -->
+	  <div class="btn-toolbar" role="toolbar" >
+		<div align="right">
+		<button type="button" class="btn-success btn-lg" ng-click="agregarMedico()">
+		    <span class="glyphicon glyphicon-plus-sign"> </span> Nuevo
+		  </button>
+		  </div>
+	 </div>
+	 
+	 
+	 <table ng-table="tableParams" 
+				class="table table-striped  table-bordered">
+				<tr ng-repeat="registro in $data">
+				
+					    <td data-title="'Clave'" class="active" sortable="'id_medicos'"
+						header-class="flechas_columnas">{{registro.id_medicos}}</td>
+						
+					   <td data-title="'Nombre'" class="text" sortable="'nombre'"
+						header-class="flechas_columnas">{{registro.nombre}}</td>
+						
+				
+					   <td data-title="'Apellido paterno'" class="active" sortable="'apePaterno'"
+						header-class="flechas_columnas">{{registro.apePaterno}}</td>	
+						
+						
+						<td data-title="'Apellido materno'" class="active" sortable="'apeMaterno'"
+						header-class="flechas_columnas">{{registro.apeMaterno}}</td>	
+						
+						<td data-title="'Telefono'" class="active" sortable="'telefono'"
+						header-class="flechas_columnas">{{registro.telefono}}</td>
+				    
+				        <td data-title="'Especialidad'" class="active" sortable="'especialidad'"
+						header-class="flechas_columnas">{{registro.especialidad}}</td>
+						
+						<td data-title="'CURP'" class="active" sortable="'curp'"
+						header-class="flechas_columnas">{{registro.curp}}</td>	
+						
+						<td data-title="'Direccion'" class="active" sortable="'direccion'"
+						header-class="flechas_columnas" >{{registro.direccion}}</td>	
+						
+						
+						
+					<td data-title="'Editar'" class="active" sortable="'lectura'"
+						header-class="flechas_columnas" align="center"><span class="glyphicon glyphicon-pencil" ng-click="modificar(registro)"> </span></td>	
+						
+				  
+				</tr>
+			</table>
+			
+			
+			<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+  <form name="doctor">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">{{mensajeTitulo}}</h4>
+      </div>
+      <div class="modal-body">
+    
+  
+             <!-- es del nombre -->
+   <div class="row">
+      <div class=" col-xs-12 col-sm-2 " align="right">
+           <label>Nombre</label>
+      </div>
+   <div class=" col-xs-12 col-sm-4 ">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-email"></i></span>
+                 <input id="Nombre" type="text" class="form-control" name="nombre" placeholder="Nombre"
+                 ng-model="parametros.nombre"  required 
+                 data-ng-class='{ error: doctor.nombre.$invalid && !doctor.$pristine }'>
+                
+         </div>     
+    </div>  
+       
+         <div class=" col-xs-12 col-sm-2 "  align="right">
+             <label>Apellido paterno</label>
+         </div>
+      <div class="col-xs-12 col-sm-4 ">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                 <input id="paterno" type="text" class="form-control" name="paterno" placeholder="Apellido paterno"
+                 ng-model="parametros.apPaternoUsuario" required 
+            data-ng-class='{ error: doctor.paterno.$invalid && !doctor.$pristine }' ng-maxlength="10">
+          </div>
+         
+       </div>
+          
+    </div>
+          <br>
+          
+   <div class="row">    
+       <div class=" col-xs-12 col-sm-2 "  align="right">
+             <label>Apellido materno</label>
+       </div>   
+       <div class="col-xs-12 col-sm-4 ">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                 <input id="materno" type="text" class="form-control" name="materno" placeholder="Apellido materno"
+                 ng-model="parametros.apMaternoUsuario" required 
+            data-ng-class='{ error: doctor.materno.$invalid && !doctor.$pristine }'>
+          </div>
+        
+       </div>
+       
+       <div class=" col-xs-12 col-sm-2 "  align="right">
+             <label>Telefono</label>
+       </div>   
+       <div class="col-xs-12 col-sm-4 ">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                 <input id="telefono" type="numer" class="form-control" name="telefono" placeholder="Telefono"
+                 ng-model="parametros.telefono" required 
+            data-ng-class='{ error: doctor.telefono.$invalid && !doctor.$pristine }'>
+          </div>
+        
+       </div>
+    </div>
+    <br>
+    <div class="row">    
+       <div class=" col-xs-12 col-sm-2 "  align="right">
+             <label>Fecha inicio profecion</label>
+       </div>   
+       <div class="col-xs-12 col-sm-4 ">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                 <input id="fechaInicio" type="text" class="form-control" name="fechaInicio" placeholder="Fecha de inicio de profecion"
+                 ng-model="parametros.fechaInicio" required 
+            data-ng-class='{ error: doctor.fechaInicio.$invalid && !doctor.$pristine }'>
+          </div>
+        
+       </div>
+      
+       <div class=" col-xs-12 col-sm-2 "  align="right">
+             <label>Codigo</label>
+       </div>   
+       <div class="col-xs-12 col-sm-4 ">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                 <input id="codigo" type="text" class="form-control" name="codigo" placeholder="Codigo"
+                 ng-model="parametros.codigo" required 
+            data-ng-class='{ error: doctor.codigo.$invalid && !doctor.$pristine }'>
+          </div>       
+       </div>
+    </div>
+    <br>
+    <div class="row">    
+       <div class=" col-xs-12 col-sm-2 "  align="right">
+             <label>CURP</label>
+       </div>   
+       <div class="col-xs-12 col-sm-4 ">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                 <input id="curp" type="text" class="form-control" name="curp" placeholder="CURP"
+                 ng-model="parametros.curp" required 
+            data-ng-class='{ error: doctor.curp.$invalid && !doctor.$pristine }'>
+          </div>
+        
+       </div>
+      
+       <div class=" col-xs-12 col-sm-2 "  align="right">
+             <label>Fechad de nacimiento</label>
+       </div>   
+       <div class="col-xs-12 col-sm-4 ">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                 <input id="fechaNacimiento" type="text" class="form-control" name="fechaNacimiento" placeholder="Fecha Nacimiento"
+                 ng-model="parametros.fechaNacimiento" required 
+            data-ng-class='{ error: doctor.fechaNacimiento.$invalid && !doctor.$pristine }'>
+          </div>
+        
+       </div>
+    </div>
+   
+   
+   <br>
+    <div class="row">    
+       <div class=" col-xs-12 col-sm-2 "  align="right">
+             <label>Especialidad</label>
+       </div>   
+       <div class="col-xs-12 col-sm-4 ">
+       <div class="form-group">
+    
+         <select id="sel1" class="form-control" ng-model="listas.selectRolesValueE" ng-change="especialidad();" 
+          ng-options="x.dsRol for x in lista.especialidad" required>
+	        <option value="">--Elige opcion--</option>
+	     </select>
+	
+	    <div class="alert alert-danger" role="alert" ng-show="bandera.Especialidad">
+		 	 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  				<span class="sr-only">Error:</span>
+  				Selecione una opcion
+		</div>
+	    </div>
+	   </div>
+    
+       <div class=" col-xs-12 col-sm-2 "  align="right">
+             <label>Calle</label>
+       </div>   
+       <div class="col-xs-12 col-sm-4 ">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                 <input id="calle" type="text" class="form-control" name="calle" placeholder="Calle"
+                 ng-model="parametros.calle" required 
+            data-ng-class='{ error: paciente.calle.$invalid && !paciente.$pristine }'>
+          </div>       
+       </div>
+    </div>
+    <br>
+     <div class="row">    
+       <div class=" col-xs-12 col-sm-3 "  align="right">
+             <label>colonia/barrio</label>
+       </div>   
+       <div class="col-xs-12 col-sm-9 ">
+       <div class="form-group">
+    
+         <select id="sel1" class="form-control" ng-model="listas.selectRolesValueCB" ng-change="coloniaBarrio();" 
+          ng-options="x.dsColoniaBarrio for x in lista.coloniaBarrio" required>
+	        <option value="">--Elige opcion--</option>
+	     </select>
+	
+	    <div class="alert alert-danger" role="alert" ng-show="bandera.validateColonia">
+		 	 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  				<span class="sr-only">Error:</span>
+  				Selecione una opcion
+		</div>
+	    </div>
+	   </div>
+   </div>
+    <br>
+    
+    
+    <div class="row">    
+       <div class=" col-xs-12 col-sm-3 "  align="right">
+             <label>Ciudad/Municipio</label>
+       </div>   
+       <div class="col-xs-12 col-sm-9 ">
+       <div class="form-group">
+    
+         <select id="sel1" class="form-control" ng-model="listas.selectRolesValueCM" ng-change="ciudadMunicipio();" 
+          ng-options="x.dsRol for x in lista.ciudadMunicipio" required>
+	        <option value="">--Elige opcion--</option>
+	     </select>
+	
+	    <div class="alert alert-danger" role="alert" ng-show="bandera.validateCiudad">
+		 	 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  				<span class="sr-only">Error:</span>
+  				Selecione una opcion
+		</div>
+	    </div>
+	   </div>
+   </div>
+    
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary " ng-click="guardarDatos()" data-ng-disabled='!usuario.$valid'>{{boton}}</button>
+      </div>
+     
+    </div><!-- /.modal-content -->
+    </form>
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+		
+</div>
