@@ -28,20 +28,20 @@
 				class="table table-striped  table-bordered">
 				<tr ng-repeat="registro in $data">
 				
-					    <td data-title="'Clave paciente'" class="active" sortable="'id_Pacientes'"
-						header-class="flechas_columnas">{{registro.id_Pacientes}}</td>
+					    <td data-title="'Clave paciente'" class="active" sortable="'id'"
+						header-class="flechas_columnas">{{registro.id}}</td>
 						
 					   <td data-title="'Nombre'" class="text" sortable="'nombre'"
 						header-class="flechas_columnas">{{registro.nombre}}</td>
 						
 					
 						
-					   <td data-title="'Apellido paterno'" class="active" sortable="'apePaterno'"
-						header-class="flechas_columnas">{{registro.apePaterno}}</td>	
+					   <td data-title="'Apellido paterno'" class="active" sortable="'apellidoPaterno'"
+						header-class="flechas_columnas">{{registro.apellidoPaterno}}</td>	
 						
 						
-						<td data-title="'Apellido materno'" class="active" sortable="'apeMaterno'"
-						header-class="flechas_columnas">{{registro.apeMaterno}}</td>	
+						<td data-title="'Apellido materno'" class="active" sortable="'apellidoMaterno'"
+						header-class="flechas_columnas">{{registro.apellidoMaterno}}</td>	
 						
 						<td data-title="'Telefono'" class="active" sortable="'telefono'"
 						header-class="flechas_columnas">{{registro.telefono}}</td>
@@ -50,8 +50,8 @@
 						<td data-title="'CURP'" class="active" sortable="'curp'"
 						header-class="flechas_columnas">{{registro.curp}}</td>	
 						
-						<td data-title="'Direccion'" class="active" sortable="'direccion'"
-						header-class="flechas_columnas" >{{registro.direccion}}</td>		
+						<td data-title="'Direccion'" class="active" sortable="'direcion'"
+						header-class="flechas_columnas" >{{registro.direcion}}</td>		
 						
 					<td data-title="'Editar'" class="active" sortable="'lectura'"
 						header-class="flechas_columnas" align="center"><span class="glyphicon glyphicon-pencil" ng-click="modificar(registro)"> </span></td>	
@@ -79,12 +79,11 @@
            <label>Nombre</label>
       </div>
    <div class=" col-xs-12 col-sm-9 ">
-        <div class="input-group">
+         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-email"></i></span>
-                 <input id="Nombre" type="text" class="form-control" name="nombre" placeholder="Nombre"
-                 ng-model="parametros.nombre"  required 
-                 data-ng-class='{ error: paciente.nombre.$invalid && !paciente.$pristine }'>
-                
+                 <input id="nombre" type="text" class="form-control" name="nombre" placeholder="Nombre"
+                 ng-model="pacientes.nombre"  required 
+                 data-ng-class='{ error: paciente.nombre.$invalid && !paciente.$pristine }'>               
          </div>     
     </div>  
     </div>
@@ -100,9 +99,9 @@
       <div class="col-xs-12 col-sm-9 ">
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                 <input id="paterno" type="text" class="form-control" name="paterno" placeholder="Apellido paterno"
-                 ng-model="parametros.apPaternoUsuario" required 
-            data-ng-class='{ error: paciente.paterno.$invalid && !paciente.$pristine }' ng-maxlength="10">
+                 <input id="apPaternoUsuario" type="text" class="form-control" name="apPaternoUsuario" placeholder="Apellido paterno"
+                  ng-model="pacientes.apPaternoUsuario" required 
+            data-ng-class='{ error: paciente.apPaternoUsuario.$invalid && !paciente.$pristine }' >
           </div>
          
        </div>
@@ -117,9 +116,9 @@
        <div class="col-xs-12 col-sm-9 ">
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                 <input id="materno" type="text" class="form-control" name="materno" placeholder="Apellido materno"
-                 ng-model="parametros.apMaternoUsuario" required 
-            data-ng-class='{ error: paciente.materno.$invalid && !paciente.$pristine }'>
+                 <input id="apMaternoUsuario" type="text" class="form-control" name="apMaternoUsuario" placeholder="Apellido materno"
+                 ng-model="pacientes.apMaternoUsuario" required 
+            data-ng-class='{ error: paciente.apMaternoUsuario.$invalid && !paciente.$pristine }'>
           </div>
         
        </div>
@@ -132,8 +131,8 @@
        <div class="col-xs-12 col-sm-9 ">
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                 <input id="telefono" type="numer" class="form-control" name="telefono" placeholder="Telefono"
-                 ng-model="parametros.telefono" required 
+                 <input id="telefono" type="text" class="form-control" name="telefono" placeholder="Telefono"
+                 ng-model="pacientes.telefono" required 
             data-ng-class='{ error: paciente.telefono.$invalid && !paciente.$pristine }'>
           </div>
         
@@ -148,7 +147,7 @@
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                  <input id="curp" type="text" class="form-control" name="curp" placeholder="CURP"
-                 ng-model="parametros.curp" required 
+                 ng-model="pacientes.curp" required 
             data-ng-class='{ error: paciente.curp.$invalid && !paciente.$pristine }'>
           </div>
         
@@ -164,34 +163,28 @@
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                  <input id="calle" type="text" class="form-control" name="calle" placeholder="Calle"
-                 ng-model="parametros.calle" required 
+                 ng-model="pacientes.calle" required 
             data-ng-class='{ error: paciente.calle.$invalid && !paciente.$pristine }'>
+          </div>       
+       </div>
+    </div>
+    <br>
+    <div class="row">    
+       <div class=" col-xs-12 col-sm-3 "  align="right">
+             <label>Colonia o barrio</label>
+       </div>   
+       <div class="col-xs-12 col-sm-9 ">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                 <input id="colonia" type="text" class="form-control" name="colonia" placeholder="Colonia o barrio"
+                 ng-model="pacientes.colonia" required 
+            data-ng-class='{ error: paciente.colonia.$invalid && !paciente.$pristine }'>
           </div>       
        </div>
     </div>
     
     <br>
-     <div class="row">    
-       <div class=" col-xs-12 col-sm-3 "  align="right">
-             <label>colonia/barrio</label>
-       </div>   
-       <div class="col-xs-12 col-sm-9 ">
-       <div class="form-group">
     
-         <select id="sel1" class="form-control" ng-model="listas.selectRolesValueCB" ng-change="coloniaBarrio();" 
-          ng-options="x.dsColoniaBarrio for x in lista.coloniaBarrio" required>
-	        <option value="">--Elige opcion--</option>
-	     </select>
-	
-	    <div class="alert alert-danger" role="alert" ng-show="bandera.validateColonia">
-		 	 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-  				<span class="sr-only">Error:</span>
-  				Selecione una opcion
-		</div>
-	    </div>
-	   </div>
-   </div>
-    <br>
     
     
     <div class="row">    
@@ -202,15 +195,11 @@
        <div class="form-group">
     
          <select id="sel1" class="form-control" ng-model="listas.selectRolesValueCM" ng-change="ciudadMunicipio();" 
-          ng-options="x.dsRol for x in lista.ciudadMunicipio" required>
+          ng-options="x.nombreMun for x in listas.ciudadMunicipio">
 	        <option value="">--Elige opcion--</option>
 	     </select>
 	
-	    <div class="alert alert-danger" role="alert" ng-show="bandera.validateCiudad">
-		 	 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-  				<span class="sr-only">Error:</span>
-  				Selecione una opcion
-		</div>
+	   
 	    </div>
 	   </div>
    </div>
@@ -218,7 +207,7 @@
     </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary " ng-click="guardarDatos()" data-ng-disabled='!usuario.$valid'>{{boton}}</button>
+        <button type="button" class="btn btn-primary " ng-click="guardarDatos()" data-ng-disabled='!paciente.$valid'>{{boton}}</button>
       </div>
      
     </div><!-- /.modal-content -->

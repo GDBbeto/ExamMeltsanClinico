@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd">
+			
+			
+     <bean name="ClinicDao" class="com.mts.clinic.dao.ClinicDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+			<property name="qryPaciente">
+			<value>
+				<![CDATA[
+					SELECT P."ID_PACIENTES",C."NOMBRE", C."APELLIDO_PATERNO",C."APELLIDO_MATERNO",
+				    P."TELEFONO",C."CURP", coalesce(D."CALLE" ||' '|| D."COLONIA_BARRIO" || ' '|| M."NOMBRE") as dire ,
+				    P."ID_CELULA_IDENTIFICACION", P."ID_DIRECCION"
+				    FROM "PACIENTES" P  INNER JOIN 
+				    "CELULA_IDENTIFICACION" C ON P."ID_CELULA_IDENTIFICACION" = C."ID_CELULA_IDENTIFICACION"
+				    INNER JOIN  "DIRECCION" D ON P."ID_DIRECCION" = D."ID_DIRECCION"
+				    INNER JOIN "CIUDAD_MUNICIPIO" M ON D."ID_CIUDAD_MUNICIPIO" = M."ID_CIUDAD_MUNICIPIO"
+				]]>
+			</value>
+		</property>	
+		
+		
+		<property name="qryCiudadMunicipio">
+			<value>
+				<![CDATA[
+					SELECT "ID_CIUDAD_MUNICIPIO", "NOMBRE"
+					FROM public."CIUDAD_MUNICIPIO"
+				]]>
+			</value>
+		</property>	
+		
+		
+		<property name="qryInsertDireccion">
+			<value>
+				<![CDATA[
+					INSERT INTO public."DIRECCION" ("CALLE", "COLONIA_BARRIO", "ID_CIUDAD_MUNICIPIO") VALUES ( ?, ?, ?)
+				]]>
+			</value>
+		</property>	
+		<property name="qryInsertCelula">
+			<value>
+				<![CDATA[
+					INSERT INTO public."CELULA_IDENTIFICACION"(
+					"NOMBRE", "APELLIDO_PATERNO", "CURP", "APELLIDO_MATERNO")
+					VALUES (?, ?, ?, ?)
+				]]>
+			</value>
+		</property>	
+		<property name="qryInsertPaciente">
+			<value>
+				<![CDATA[
+					INSERT INTO public."PACIENTES"(
+					 "NOMBRE", "TELEFONO", "ACTIVO", "ID_CELULA_IDENTIFICACION", "ID_DIRECCION")
+					VALUES ( ?, ?, ?,(SELECT MAX("ID_CELULA_IDENTIFICACION")  FROM public."CELULA_IDENTIFICACION"), (SELECT MAX("ID_DIRECCION")  FROM public."DIRECCION"))
+				]]>
+			</value>
+		</property>	
+		
+		<property name="qrySelectDoctor">
+			<value>
+				<![CDATA[
+					SELECT D."ID_DOCTOR", CI."NOMBRE" ,CI."APELLIDO_PATERNO",CI."APELLIDO_MATERNO",D."TELEFONO",C."NOMBRE" AS NOM_ESP,
+					   CI."CURP", coalesce(DI."CALLE" ||' '|| DI."COLONIA_BARRIO" || ' '|| M."NOMBRE") as dire
+						FROM public."DOCTOR" D INNER JOIN public."ESPECIALIDAD" C
+					    on D."ID_ESPECIALIDAD" = C."ID_ESPECIALIDAD" INNER JOIN
+					    public."CELULA_IDENTIFICACION" CI ON D."ID_CELULA_IDENTIFICACION" = CI."ID_CELULA_IDENTIFICACION"
+					    INNER JOIN public."DIRECCION" DI ON D."ID_DIRECCION" = DI."ID_DIRECCION"
+					    INNER JOIN public."CIUDAD_MUNICIPIO" M ON DI."ID_CIUDAD_MUNICIPIO" = M."ID_CIUDAD_MUNICIPIO"
+					
+				]]>
+			</value>
+		</property>	
+	</bean>		
+						
+</beans>
